@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: #f5f0ff;
+    color: #1a1a1a;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* NAV */
+  nav {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-name { font-weight: 600; font-size: .95rem; color: #6c3fc5; }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a { font-size: .85rem; color: #999; transition: color .2s; }
+  .nav-links a:hover { color: #6c3fc5; }
+
+  .page { max-width: 680px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+
+  /* HERO */
+  .hero { margin-bottom: 5rem; }
+  .photo-wrap {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    border: 3px solid #d4c2fa;
+    box-shadow: 0 0 0 5px #ede5ff;
+    margin-bottom: 1.4rem;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #e8dcff, #fce4f3);
+    position: relative;
+    transition: box-shadow .2s;
+  }
+  .photo-wrap:hover { box-shadow: 0 0 0 5px #d4c2fa; }
+  .photo-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    border-radius: 50%;
+  }
+  #photoEmpty {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: .15rem;
+    color: #a78bdb;
+  }
+  #photoEmpty span { font-size: 1.6rem; line-height: 1; }
+  #photoEmpty small { font-size: .65rem; letter-spacing: .05em; }
+  .hero h1 { font-size: 2rem; font-weight: 600; line-height: 1.2; margin-bottom: 1rem; }
+  .hero h1 .name { color: #6c3fc5; }
+  .hero p { color: #555; font-size: .97rem; max-width: 480px; }
+  .status {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-size: .78rem; color: #2e7d32;
+    background: #e8f5e9; padding: .3em .9em;
+    border-radius: 99px; margin-top: 1.2rem;
+  }
+  .status::before { content: ''; width: 7px; height: 7px; background: #43a047; border-radius: 50%; }
+
+  /* SECTION DIVIDER */
+  hr { border: none; border-top: 1px solid #e2d9f3; margin: 4rem 0; }
+  .sec-title {
+    font-size: .72rem; font-weight: 500; letter-spacing: .12em;
+    text-transform: uppercase; color: #a78bdb; margin-bottom: 2rem;
+  }
+
+  /* ABOUT */
+  .about-text { color: #444; font-size: .95rem; }
+  .about-text p + p { margin-top: .9rem; }
+  .about-row { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  .chip {
+    font-family: 'DM Mono', monospace; font-size: .75rem;
+    padding: .3em .85em; border-radius: 8px; color: #5a3aaa;
+    background: #ede5ff; border: 1px solid #d4c2fa;
+  }
+
+  /* SKILLS */
+  .skills-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .skill-group-title { font-size: .82rem; font-weight: 600; color: #1a1a1a; margin-bottom: .85rem; }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: .45rem; }
+
+  /* each group gets its own color */
+  .group-purple .skill-tag { background: #ede5ff; color: #5a3aaa; border: 1px solid #d4c2fa; }
+  .group-pink   .skill-tag { background: #fce4f3; color: #ad2175; border: 1px solid #f4b8e0; }
+  .group-teal   .skill-tag { background: #e0f7f4; color: #1a7a6e; border: 1px solid #b2ece5; }
+  .group-amber  .skill-tag { background: #fff3e0; color: #a05a00; border: 1px solid #ffd699; }
+
+  .skill-tag { font-size: .8rem; padding: .3em .75em; border-radius: 7px; }
+
+  /* HOBBIES */
+  .hobbies-list { display: flex; flex-direction: column; gap: 1.1rem; }
+  .hobby-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1rem 1.1rem; border-radius: 12px; border: 1.5px solid transparent;
+  }
+  .hobby-item:nth-child(1) { background: #fce4f3; border-color: #f4b8e0; }
+  .hobby-item:nth-child(2) { background: #ede5ff; border-color: #d4c2fa; }
+  .hobby-item:nth-child(3) { background: #e0f7f4; border-color: #b2ece5; }
+  .hobby-item:nth-child(4) { background: #fff3e0; border-color: #ffd699; }
+  .hobby-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: .05rem; }
+  .hobby-title { font-weight: 600; font-size: .93rem; margin-bottom: .2rem; color: #1a1a1a; }
+  .hobby-desc { font-size: .85rem; color: #555; }
+
+  /* CERTIFICATES */
+  .certs-list { display: flex; flex-direction: column; gap: .75rem; }
+  .cert-item {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: .95rem 1.1rem; background: #fff;
+    border: 1px solid #e2d9f3; border-radius: 10px; gap: 1rem;
+    border-left: 4px solid #a78bdb;
+  }
+  .cert-name { font-weight: 500; font-size: .92rem; margin-bottom: .2rem; }
+  .cert-issuer { font-size: .8rem; color: #888; }
+  .cert-year { font-family: 'DM Mono', monospace; font-size: .75rem; color: #b0a0d0; flex-shrink: 0; padding-top: .2rem; }
+
+  /* SOCIAL */
+  .social-list { display: flex; flex-direction: column; gap: .6rem; }
+  .social-item {
+    display: flex; align-items: center; gap: .9rem;
+    padding: .85rem 1rem; background: #fff;
+    border: 1px solid #e2d9f3; border-radius: 10px;
+    transition: border-color .2s, background .2s;
+  }
+  .social-item:hover { border-color: #a78bdb; background: #f9f5ff; }
+  .social-item-icon { font-size: 1.2rem; flex-shrink: 0; width: 28px; text-align: center; }
+  .social-platform { font-weight: 500; font-size: .9rem; display: block; }
+  .social-handle { font-size: .8rem; color: #999; display: block; }
+  .social-arrow { color: #c4b2e8; font-size: .9rem; margin-left: auto; transition: color .2s; }
+  .social-item:hover .social-arrow { color: #6c3fc5; }
+
+  /* FOOTER */
+  .footer { margin-top: 5rem; padding-top: 2rem; border-top: 1px solid #e2d9f3; font-size: .8rem; color: #bbb; text-align: center; }
+
+  @media (max-width: 520px) {
+    .skills-cols { grid-template-columns: 1fr; gap: 1.5rem; }
+    .hero h1 { font-size: 1.7rem; }
+    nav { padding: 1.5rem 1.2rem 0; }
+    .page { padding: 3rem 1.2rem 5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">Portfolio</span>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#hobbies">Hobbies</a>
+    <a href="#certs">Certs</a>
+    <a href="#social">Social</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="photo-wrap"<div class="field-image-home">
+  <img src="img/Profile.jpeg" alt="">
+</div>
+    </div>
+    <input type="file" id="photoInput" accept="image/*" style="display:none">
+    <h1>Hey, I'm <br><span class="name">Mariel Quiniquito</span></h1>
+    <p>Little by little,
+day by day, what's
+meant for you will
+find its way.</p>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="sec-title">About me</p>
+    <div class="about-text">
+      <p>Hi! My name is Mariel, and my nickname is Honey. I am the youngest and the only daughter in our family. I love listening to music, playing chess, and spending my free time drawing or painting. I am also someone who enjoys learning new things because I believe there is always something valuable to discover. These interests help me stay creative, curious, and motivated in everyday life.</p>
+    </div>
+    <div class="about-row">
+      <span class="chip">📍PANABO CITY, PH</span>
+      <span class="chip">✉️ marielquiniquito2@gmail.com </span>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="sec-title">My skills</p>
+    <div class="skills-cols">
+      <div>
+        <p class="skill-group-title">Frontend</p>
+        <div class="skill-tags group-purple">
+          <span class="skill-tag">HTML</span>
+          <span class="skill-tag">CSS</span>
+        </div>
+      </div>
+      <div>
+        <p class="skill-group-title">Backend</p>
+        <div class="skill-tags group-pink">
+          <span class="skill-tag">Java</span>
+        </div>
+      </div>
+      <div>
+        <p class="skill-group-title">Database</p>
+        <div class="skill-tags group-teal">
+          <span class="skill-tag">MySQL</span>
+        </div>
+      </div>
+      <div>
+        <p class="skill-group-title">Tools</p>
+        <div class="skill-tags group-amber">
+          <span class="skill-tag">Netbeans</span>
+          <span class="skill-tag">VS Code</span>
+          <span class="skill-tag">Git Hub</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- HOBBIES -->
+  <section id="hobbies">
+    <p class="sec-title">My hobbies</p>
+    <div class="hobbies-list">
+      <div class="hobby-item">
+        <span class="hobby-icon">🎧</span>
+        <div>
+          <p class="hobby-title">Playing music</p>
+          <p class="hobby-desc">I play music and sometimes sing. Music helps me decompress and makes me way more creative when I come back to coding.</p>
+        </div>
+      </div>
+      <div class="hobby-item">
+        <span class="hobby-icon">♟️</span>
+        <div>
+          <p class="hobby-title">Sports</p>
+          <p class="hobby-desc">I play chess. Chess is my favorite sports because the way it gains more critical thinking.  </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- CERTIFICATES -->
+  <section id="certs">
+    <p class="sec-title">Certificates</p>
+    <div class="certs-list">
+      <div class="cert-item">
+        <div>
+          <p class="cert-name">2nd place Kalibulong chess Female Category</p>
+          <p class="cert-issuer">Chess</p>
+        </div>
+        <span class="cert-year">2026</span>
+      </div>
+      
+  </section>
+
+  <hr>
+
+  <!-- SOCIAL -->
+  <section id="social">
+    <p class="sec-title">Find me on</p>
+    <div class="social-list">
+      
+      <a href="https://www.facebook.com/share/1EDnbWfbDE/" class="social-item">
+        <span class="social-item-icon">📘</span>
+        <div>
+          <span class="social-platform">Facebook</span>
+          <span class="social-handle">@Mariel Quiniquito</span>
+        </div>
+        <span class="social-arrow">↗</span>
+      </a>
+      <a href="https://www.instagram.com/honeykniq2/" class="social-item">
+        <span class="social-item-icon">📸</span>
+        <div>
+          <span class="social-platform">Instagram</span>
+          <span class="social-handle">ig: honeykniq2
+    </span>
+        </div>
+        <span class="social-arrow">↗</span>
+      </a>
+      <a href="marielquiniquito2@gmail.com" class="social-item">
+        <span class="social-item-icon">✉️</span>
+        <div>
+          <span class="social-platform">Email</span>
+          <span class="social-handle">marielquiniquito2@gmail.com</span>
+        </div>
+        <span class="social-arrow">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="footer">made with ☕ · © all rights reserved</div>
+
+</div>
+<script>
+  document.getElementById('photoInput').addEventListener('change', function() {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const preview = document.getElementById('photoPreview');
+      preview.src = e.target.result;
+      preview.style.display = 'block';
+      document.getElementById('photoEmpty').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  });
+</script>
+</body>
+</html>
